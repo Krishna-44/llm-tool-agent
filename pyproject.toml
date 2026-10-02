@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "toolagent"
+version = "0.1.0"
+description = "A small, transparent tool-using LLM agent: typed tools with generated schemas, a hand-written agent loop on the Claude Messages API, sandboxed file tools, approvals, tracing and an eval suite."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Krishna Goyal" }]
+keywords = ["llm", "agent", "tool-use", "function-calling", "claude", "anthropic"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["anthropic>=1.11"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+toolagent = "toolagent.cli:main"
+
+[project.urls]
+Repository = "https://github.com/Krishna-44/llm-tool-agent"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toolagent"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["SIM108"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

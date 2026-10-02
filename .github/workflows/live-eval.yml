@@ -1,0 +1,41 @@
+name: Live eval
+
+# Runs the task suite against the real Claude API. Manual only, because it spends API credits.
+# Requires an ANTHROPIC_API_KEY repository secret.
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: Model ID
+        default: claude-opus-5-5
+      effort:
+        description: Effort level
+        default: high
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - name: Check for API key
+        if: env.ANTHROPIC_API_KEY == ''
+        run: |
+          echo "::error::Add an ANTHROPIC_API_KEY repository secret to run the live eval."
+          exit 1
+      - name: Run eval
+        shell: bash
+        env:
+          MODEL: ${{ inputs.model }}
+          EFFORT: ${{ inputs.effort }}
+        run: toolagent eval --model "$MODEL" --effort "$EFFORT" | tee -a "$GITHUB_STEP_SUMMARY"
