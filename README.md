@@ -221,4 +221,4 @@ request shape and lossless serialisation of response blocks, using real SDK type
 
 ## License
 
-[MIT](LICENSE) © Krishna Goyal
+[MIT](LICENSE) © Krishna Gupta

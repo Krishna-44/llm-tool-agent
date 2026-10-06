@@ -9,7 +9,7 @@ description = "A small, transparent tool-using LLM agent: typed tools with gener
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Krishna Goyal" }]
+authors = [{ name = "Krishna Gupta" }]
 keywords = ["llm", "agent", "tool-use", "function-calling", "claude", "anthropic"]
 classifiers = [
   "Programming Language :: Python :: 3",
